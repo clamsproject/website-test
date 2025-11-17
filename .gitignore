@@ -3,7 +3,6 @@
 .DS_Store
 
 # Sphinx build artifacts
-documentation/_build/
 *.pyc
 __pycache__/
 

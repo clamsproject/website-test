@@ -1,50 +1,21 @@
-# CLAMS Project Documentation
+# CLAMS Project Documentation Hub
 
-This repository contains the source for the CLAMS project documentation, built with [Sphinx](https://www.sphinx-doc.org/en/master/).
+This repository serves as the central publication hub for all documentation related to the CLAMS project. It aggregates generated HTML documentation from various source repositories and serves them from a single location.
 
-## Local Development
+## Structure
 
-### Setup
+-   `index.html`: The main landing page for the entire documentation hub.
+-   `.github/workflows/`: Contains the GitHub Actions workflows that automate the process of fetching, building, and publishing documentation from other repositories.
+-   `docs/`: This directory contains all the generated documentation, organized by project and version.
+    -   `docs/<project-name>/<version>/`: Contains the actual HTML files for a specific version of a project.
+    -   `docs/<project-name>/latest/`: A stable URL that always points to the most recent version of a project's documentation.
 
-To build the documentation locally, you'll need Python and `pip`.
+## How It Works
 
-1.  **Create and activate a virtual environment:**
+The documentation source code (e.g., `.rst` files, Python docstrings) resides in the individual project repositories. A GitHub Actions workflow in this repository is responsible for:
 
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
+1.  Checking out the source from a project repository.
+2.  Building the HTML documentation using tools like Sphinx.
+3.  Committing the generated HTML files to the appropriate directory within the `docs/` folder of this repository.
 
-2.  **Install dependencies:**
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-### Building the Documentation
-
-To compile the documentation, run the following command from the root of the repository:
-
-```bash
-sphinx-build documentation docs-build
-```
-
-The generated HTML files will be in the `docs-build/` directory.
-
-### Viewing the Documentation
-
-You can preview the generated site locally using a simple Python web server:
-
-```bash
-cd docs-build
-python -m http.server
-```
-
-Then, open `http://localhost:8000` in your web browser.
-
-## Repository Structure
-
--   `documentation/`: Contains the Sphinx source files (`.rst`).
--   `docs-build/`: Contains the generated HTML output. This directory is committed to the repository to be served by GitHub Pages.
--   `requirements.txt`: Lists the Python dependencies required to build the documentation.
--   `.github/workflows/`: Contains the GitHub Actions workflow for automatically building the documentation.
+This repository does not contain any documentation *source* files, only the final, published HTML artifacts.
