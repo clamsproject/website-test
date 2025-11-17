@@ -1,0 +1,15 @@
+# IDE and OS files
+.idea/
+.DS_Store
+
+# Sphinx build artifacts
+documentation/_build/
+*.pyc
+__pycache__/
+
+# Python virtual environment
+venv/
+env/
+.venv/
+
+# Note: docs-build/ is NOT ignored, as it is committed to the branch.

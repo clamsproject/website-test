@@ -1,0 +1,72 @@
+name: Build Sphinx Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'documentation/**'
+      - 'requirements.txt'
+      - '.github/workflows/build-sphinx-docs.yml'
+
+  # Manual trigger
+  workflow_dispatch:
+
+  # Triggered by SDK releases (to be enabled in Phase 2)
+  # repository_dispatch:
+  #   types: [sdk-release, docs-updated]
+
+  # Weekly rebuild (backup sync)
+  schedule:
+    - cron: '0 2 * * 0'  # 2 AM every Sunday
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git info
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Phase 1: Build only hub docs
+      - name: Build Sphinx documentation
+        run: |
+          sphinx-build -b html documentation docs-build
+
+      # Phase 2 will add SDK cloning and integration here
+      # - name: Clone SDK repositories
+      # - name: Build SDK docs
+      # - name: Copy to unified structure
+
+      - name: Add .nojekyll file
+        run: |
+          touch docs-build/.nojekyll
+
+      - name: Commit built documentation
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add docs-build
+          git diff --staged --quiet || git commit -m "Build Sphinx documentation [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build summary
+        run: |
+          echo "## Sphinx Build Complete :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Documentation built successfully to \`docs-build/\` directory." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**View at:** https://clams.ai/docs-build/" >> $GITHUB_STEP_SUMMARY

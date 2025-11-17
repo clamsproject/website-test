@@ -1,0 +1,20 @@
+# Sphinx documentation build dependencies
+# For CLAMS Documentation Hub
+
+# Core Sphinx
+sphinx>=7.0.0
+
+# Theme
+furo
+
+# Extensions
+sphinx-copybutton          # Copy button on code blocks
+sphinx-design              # Cards, grids, tabs UI components
+sphinx-multiversion        # Multi-version documentation support
+sphinxcontrib-mermaid      # Diagram support
+
+# Autodoc enhancements
+sphinx-autodoc-typehints   # Better type hint rendering
+
+# Markdown support (if needed for gradual migration)
+myst-parser                # Markdown parser for Sphinx
