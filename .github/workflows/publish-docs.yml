@@ -1,12 +1,12 @@
-name: Build Sphinx Documentation
+name: Build and Publish Documentation
 
 on:
   push:
     branches: [main]
     paths:
       - 'documentation/**'
-      - 'requirements.txt'
-      - '.github/workflows/build-sphinx-docs.yml'
+      - 'build/**'
+      - '.github/workflows/publish-docs.yml'
 
   # Manual trigger
   workflow_dispatch:
@@ -32,17 +32,17 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.14'
 
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r build/requirements.txt
 
-      # Phase 1: Build only hub docs
-      - name: Build Sphinx documentation
+      # Phase 1: Build main documentation
+      - name: Build main documentation
         run: |
-          sphinx-build -b html documentation docs-build
+          python build/main.py
 
       # Phase 2 will add SDK cloning and integration here
       # - name: Clone SDK repositories
@@ -51,22 +51,22 @@ jobs:
 
       - name: Add .nojekyll file
         run: |
-          touch docs-build/.nojekyll
+          touch docs/.nojekyll
 
       - name: Commit built documentation
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add docs-build
-          git diff --staged --quiet || git commit -m "Build Sphinx documentation [skip ci]"
+          git add docs
+          git diff --staged --quiet || git commit -m "Build and publish documentation [skip ci]"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build summary
         run: |
-          echo "## Sphinx Build Complete :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "## Documentation Build Complete :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Documentation built successfully to \`docs-build/\` directory." >> $GITHUB_STEP_SUMMARY
+          echo "Main documentation built successfully to \`docs/\` directory." >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**View at:** https://clams.ai/docs-build/" >> $GITHUB_STEP_SUMMARY
+          echo "**View at:** https://clams.ai/docs/" >> $GITHUB_STEP_SUMMARY
