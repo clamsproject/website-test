@@ -44,6 +44,88 @@
   }
 </style></head>
   <body>
+<!-- CLAMS Hub Version Header - Injected -->
+<style>
+.clams-version-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 8px 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+@media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) .clams-version-header {
+        background: #1a1a1a;
+        border-bottom-color: #333;
+    }
+    body:not([data-theme="light"]) .clams-version-header a {
+        color: #6cb6ff;
+    }
+    body:not([data-theme="light"]) .clams-version-header .nav-link.active {
+        background: #333;
+    }
+}
+body[data-theme="dark"] .clams-version-header {
+    background: #1a1a1a;
+    border-bottom-color: #333;
+}
+body[data-theme="dark"] .clams-version-header a {
+    color: #6cb6ff;
+}
+body[data-theme="dark"] .clams-version-header .nav-link.active {
+    background: #333;
+}
+.clams-version-header a {
+    color: #008AFF;
+    text-decoration: none;
+}
+.clams-version-header a:hover {
+    text-decoration: underline;
+}
+.clams-version-header .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.clams-version-header .logo {
+    height: 28px;
+    width: auto;
+}
+.clams-version-header .project-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.clams-version-header .nav-link {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.clams-version-header .nav-link:hover {
+    background: #e9ecef;
+    text-decoration: none;
+}
+.clams-version-header .nav-link.active {
+    background: #e9ecef;
+    font-weight: 600;
+}
+</style>
+<div class="clams-version-header">
+    <div class="header-left">
+        <a href="../index.html" title="CLAMS Documentation Hub">
+            <img src="../assets/clams-logo.png" alt="CLAMS" class="logo">
+        </a>
+        <nav class="project-nav">
+            <a href="../home/index.html" class="nav-link active">home</a>
+            <a href="../mmif-python/latest/index.html" class="nav-link">mmif-python</a>
+        </nav>
+    </div>
+</div>
+<!-- End CLAMS Hub Version Header -->
+
     
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";

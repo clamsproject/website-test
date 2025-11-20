@@ -36,6 +36,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.
+# Using Furo for visual consistency across all CLAMS projects
 html_theme = 'furo'
 
 # Theme options

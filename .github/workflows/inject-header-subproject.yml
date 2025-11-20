@@ -1,0 +1,88 @@
+name: Inject Subproject Headers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'to-build/**'
+
+  # Manual trigger with subproject input
+  workflow_dispatch:
+    inputs:
+      subproject:
+        description: 'Subproject directory name (e.g., mmif-python)'
+        required: true
+        type: string
+
+jobs:
+  inject-headers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # Need previous commit for diff
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r build/requirements.txt
+
+      - name: Detect staged subprojects
+        id: detect
+        run: |
+          if [ -n "${{ github.event.inputs.subproject }}" ]; then
+            # Manual trigger - use input
+            echo "subprojects=${{ github.event.inputs.subproject }}" >> $GITHUB_OUTPUT
+          else
+            # Push trigger - detect from to-build directory
+            STAGED=$(ls -d to-build/*/ 2>/dev/null | xargs -I{} basename {} | tr '\n' ' ')
+            echo "subprojects=$STAGED" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Process staged subprojects
+        if: steps.detect.outputs.subprojects != ''
+        run: |
+          for proj in ${{ steps.detect.outputs.subprojects }}; do
+            if [ -d "to-build/$proj" ]; then
+              echo "Processing: $proj"
+
+              # Inject headers to staged files
+              python build/inject-header.py "to-build/$proj"
+
+              # Create target directory if needed
+              mkdir -p "docs/$proj"
+
+              # Move injected files to docs
+              cp -r "to-build/$proj/"* "docs/$proj/"
+
+              # Clean up staging directory
+              rm -rf "to-build/$proj"
+
+              echo "Moved $proj to docs/"
+            fi
+          done
+
+      - name: Commit changes
+        run: |
+          git config user.name "clams-bot"
+          git config user.email "admin@clams.ai"
+          git add docs to-build
+          git diff --staged --quiet || git commit -m "Deploy subproject documentation"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build summary
+        run: |
+          echo "## Subproject Deployment Complete :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Processed: ${{ steps.detect.outputs.subprojects }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Files moved from \`to-build/\` to \`docs/\` with injected headers." >> $GITHUB_STEP_SUMMARY

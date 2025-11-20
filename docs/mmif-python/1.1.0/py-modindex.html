@@ -34,6 +34,125 @@
   }
 </style></head>
   <body>
+<!-- CLAMS Hub Version Header - Injected -->
+<style>
+.clams-version-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 8px 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+@media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) .clams-version-header {
+        background: #1a1a1a;
+        border-bottom-color: #333;
+    }
+    body:not([data-theme="light"]) .clams-version-header a {
+        color: #6cb6ff;
+    }
+    body:not([data-theme="light"]) .clams-version-header select {
+        background: #2d2d2d;
+        color: #e0e0e0;
+        border-color: #444;
+    }
+    body:not([data-theme="light"]) .clams-version-header .nav-link.active {
+        background: #333;
+    }
+}
+body[data-theme="dark"] .clams-version-header {
+    background: #1a1a1a;
+    border-bottom-color: #333;
+}
+body[data-theme="dark"] .clams-version-header a {
+    color: #6cb6ff;
+}
+body[data-theme="dark"] .clams-version-header select {
+    background: #2d2d2d;
+    color: #e0e0e0;
+    border-color: #444;
+}
+body[data-theme="dark"] .clams-version-header .nav-link.active {
+    background: #333;
+}
+.clams-version-header a {
+    color: #008AFF;
+    text-decoration: none;
+}
+.clams-version-header a:hover {
+    text-decoration: underline;
+}
+.clams-version-header .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.clams-version-header .logo {
+    height: 28px;
+    width: auto;
+}
+.clams-version-header .project-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.clams-version-header .nav-link {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.clams-version-header .nav-link:hover {
+    background: #e9ecef;
+    text-decoration: none;
+}
+.clams-version-header .nav-link.active {
+    background: #e9ecef;
+    font-weight: 600;
+}
+.clams-version-header .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.clams-version-header select {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+</style>
+<div class="clams-version-header">
+    <div class="header-left">
+        <a href="../../index.html" title="CLAMS Documentation Hub">
+            <img src="../../assets/clams-logo.png" alt="CLAMS" class="logo">
+        </a>
+        <nav class="project-nav">
+            <a href="../../home/index.html" class="nav-link">home</a>
+            <a href="../../mmif-python/latest/index.html" class="nav-link active">mmif-python</a>
+        </nav>
+    </div>
+    <div class="header-right">
+        <select onchange="if(this.value) window.location.href=this.value;">
+            <option value="">Switch version...</option>
+            <option value="../1.1.2/index.html">1.1.2</option>
+            <option value="../1.1.1/index.html">1.1.1</option>
+            <option value="" disabled selected>1.1.0 (current)</option>
+        </select>
+    </div>
+</div>
+<!-- End CLAMS Hub Version Header -->
+
+
+
+
+
     
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
