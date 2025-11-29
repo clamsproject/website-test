@@ -1,12 +1,32 @@
 Team
 ====
 
+The CLAMS project team includes researchers and developers from the `Brandeis Lab for Linguistics and Computation <https://brandeis-llc.github.io/>`_ in the Computer Science Department at Brandeis University.
+
+For general contact, please email admin@clams.ai.
+
+Principal Investigator
+----------------------
+
+* `James Pustejovsky <http://cs.brandeis.edu/~jamesp>`_
+
+Project Manager
+---------------
+
+* `Kyeongmin Rim <https://github.com/keighrim>`_
+
+Researcher
+----------
+
+* `Marc Verhagen <https://github.com/marcverhagen>`_
+
+Graduate Student Researchers
+---------------------------
+
+* `Kelley Lynch <https://github.com/kelleyl>`_
+* Yangyang Chen
+* Bohan Jiang
+* Derrick Kim
+
 .. note::
-   This page is under migration from Jekyll to Sphinx.
-   Full content will be added in Phase 2.
-
-The CLAMS project team includes researchers and developers from Brandeis University.
-
-**Principal Investigator**: James Pustejovsky
-
-For the current team information, please see the `Jekyll version <../team>`_.
+   The CLAMS project started with collaboration between LLC and `American Archive of Public Broadcasting (AAPB) <http://americanarchive.org/>`_.
