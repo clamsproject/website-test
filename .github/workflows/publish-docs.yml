@@ -26,13 +26,13 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install -r build/requirements.txt
+          pip install -r build-tools/requirements.txt
 
       - name: Build home documentation
-        run: python build/home.py
+        run: python build-tools/home.py
 
       - name: Inject navigation header
-        run: python build/inject-header.py docs/home
+        run: python build-tools/inject-header.py docs/home
 
       - name: Add .nojekyll file
         run: touch docs/.nojekyll

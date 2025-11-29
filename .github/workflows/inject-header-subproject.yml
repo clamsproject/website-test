@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install -r build/requirements.txt
+          pip install -r build-tools/requirements.txt
 
       - name: Detect staged subprojects
         id: detect
@@ -54,7 +54,7 @@ jobs:
               echo "Processing: $proj"
 
               # Inject headers to staged files
-              python build/inject-header.py "to-build/$proj"
+              python build-tools/inject-header.py "to-build/$proj"
 
               # Create target directory if needed
               mkdir -p "docs/$proj"
