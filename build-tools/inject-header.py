@@ -317,7 +317,9 @@ def generate_project_nav_links(projects, current_project, base_url):
     """
     links = []
 
-    for project in sorted(projects.keys()):
+    for project in 'home mmif mmif-python clams-python aapb-annotations aapn-evaluations'.split():
+        if project not in projects:
+            continue
         info = projects[project]
         # Use absolute URLs based on base_url
         if info['is_versioned']:
